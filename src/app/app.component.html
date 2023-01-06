@@ -1,56 +1,58 @@
-<header>
+<header class="d-none d-md-block">
   <nav class="navbar navbar-light bg-white">
     <div style="padding-left: 40px;">
       <img height="50px" src="../assets/Graviti Logo.png">
     </div>
   </nav>
 </header>
-<section class="main_body">
-  <div class="row">
-  <div class=" col-md-12 ">
-    <div class="heading1">Let's calculate <b>distance</b> from Google maps</div><br>
-        <!-- <form> -->
-          <div class="container">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="row">
-                 <div class="col-md-6">
-                   <label>Origin</label>
-                   <input placeholder="Origin" class="form-control" #searchOrigin (keyup)="findAdress('origin')"><br>
-                   <label>Stop</label>
-                   <input placeholder="Stop" class="form-control" #searchStop (keyup)="stops()">
-                   <a><div style="float:right ;">Add Stop</div></a>  <br>
-                   <label>Destination</label>
-                   <input placeholder="Destination" class="form-control" #searchDestination (keyup)="findAdress('des')"><br>
-                 </div> 
-                 <div class="col-md-6  text-center calculate" >
-                   <button class="btn  submit-btn" (click)="calculate()">Calculate</button>
-                 </div>
-                 <div class="col-md-12" >
-                   <div class="upper">
-                    <!-- <div > -->
-                      <span><b>Distance</b></span>
-                    <span class="number">{{distanceInkMeters|number}}kms</span>
-                  
-                  </div>
-                  <div class="lower">
-                    <div class=" pl-5">The distance between <b>{{originplace}}</b>  and <b>{{desplace}}</b> via the seleted route is {{distanceInkMeters|number}} kms.</div>
-                    </div>
-                 </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <agm-map [latitude]="latorigin" [longitude]="lngorigin" style="height: 450px;width: 500px;">
-                  <agm-marker [latitude]="latorigin" [longitude]="lngorigin"></agm-marker>
-                  <agm-marker [latitude]="latdes" [longitude]="lngdes"></agm-marker>
-                  <agm-direction [origin]="origin" [destination]="destination">
-                  </agm-direction>
-                </agm-map>
+<section class="main-body w-100">
+  <div class="container">
+    <div class="heading1 d-none d-md-block">Let's calculate <b>distance</b> from Google maps</div><br>
+    <div class="row">
+
+      <div class="col-md-6">
+        <agm-map [latitude]="latorigin" [longitude]="lngorigin" style="height: 450px;width: 100%;">
+          <agm-marker [latitude]="latorigin" [longitude]="lngorigin"></agm-marker>
+          <agm-marker [latitude]="latdes" [longitude]="lngdes"></agm-marker>
+          <agm-direction [origin]="origin" [destination]="destination" [waypoints]="waypoints">
+          </agm-direction>
+        </agm-map>
+      </div>
+      <div class="col-md-6 order-lg-first mt-3">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="d-none d-md-block">Origin</label>
+              <input placeholder="Origin" class="form-control" #searchOrigin (keyup)="findAdress('origin')">
+            </div>
+            <div class="mb-3">
+              <label class="d-none d-md-block">Stop</label>
+              <input placeholder="Stop" class="form-control" #searchStop (keyup)="stops()">
+              <div class="text-end">
+                <a>Add another stop</a>
               </div>
             </div>
+            <div class="mb-3">
+              <label class="d-none d-md-block">Destination</label>
+              <input placeholder="Destination" class="form-control" #searchDestination (keyup)="findAdress('des')">
+            </div>
           </div>
-          
-        <!-- </form> -->
-  </div>
+          <div class="col-md-6 d-flex justify-content-center align-items-center">
+            <button class="btn submit-btn py-2 px-3" (click)="calculate()">Calculate</button>
+          </div>
+          <div class="col-md-12 mt-3">
+            <div class="upper rounded py-3 px-3 d-flex justify-content-between align-items-center">
+              <span><b>Distance</b></span>
+              <span class="number">{{distanceInkMeters|number}} kms</span>
+            </div>
+            <div class="lower">
+              <div class=" pl-5">The distance between <b>{{originplace}}</b> and <b>{{desplace}}</b> via <b>{{stopplace.join(' and ')}}</b> the seleted
+                route is {{distanceInkMeters|number}} kms.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>

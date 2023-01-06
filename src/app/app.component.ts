@@ -22,6 +22,8 @@ export class AppComponent implements OnInit {
   public distanceInkMeters:any;
   public originplace :string="";
   public desplace: string="";
+  public stopplace: string[] = [];
+  public waypoints = <any>[];
   
   constructor(
     private mapsAPILoader: MapsAPILoader, 
@@ -43,21 +45,19 @@ export class AppComponent implements OnInit {
           console.log(place);
     
         if (type === 'origin') {
-          this.originplace=this.searchOrigin.nativeElement.value ;
+          this.originplace=this.searchOrigin.nativeElement.value.split(',')[0];
           console.log( this.originplace);
           if (place.geometry?.location.lat())
           this.latorigin = place.geometry?.location.lat();
           if (place.geometry?.location.lng())
           this.lngorigin = place.geometry?.location.lng();
         } else {
-          this.desplace=this.searchDestination.nativeElement.value;
+          this.desplace=this.searchDestination.nativeElement.value.split(',')[0];
           if (place.geometry?.location.lat())
           this.latdes = place.geometry?.location.lat();
           if (place.geometry?.location.lng())
           this.lngdes = place.geometry?.location.lng();
         }
-         
-    
         });
       });
     });
@@ -67,27 +67,24 @@ export class AppComponent implements OnInit {
    calculate(){
     this.origin = {lat:this.latorigin,lng: this.lngorigin};
         this.destination = {lat:this.latdes,lng:this.lngdes};
-        
         this.distanceInkMeters = google.maps.geometry.spherical.computeDistanceBetween(
           new google.maps.LatLng(this.origin),
           new google.maps.LatLng(this.destination)
       )* 0.001;
-        
-      console.log(this.distanceInkMeters );
    }
 
 
    stops(){
     this.mapsAPILoader.load().then(() => {
-      let autocomplete = new google.maps.places.Autocomplete( this.searchStop.nativeElement );
+      let autocomplete = new google.maps.places.Autocomplete(this.searchStop.nativeElement);
       autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
-          // some details
           let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-          console.log(place);
           this.latstop = place.geometry?.location.lat();
           this.lngstop = place.geometry?.location.lng();
+          this.waypoints.push({location: { lat: this.latstop, lng: this.lngstop }});
         });
+        this.stopplace.push(this.searchStop.nativeElement.value.split(',')[0]);
       });
     });
    }

@@ -1,8 +1,7 @@
-.main_body{
+.main-body{
     background-color: #F4F8FA;
     font-family: IBM Plex Sans;
     height: 100%;
-
 }
 .heading1{
     color: blue;
@@ -16,10 +15,10 @@
   background-color: #1B31A8;
   color: #ffff;
   border-radius: 32px;
-  position: absolute;
+  /* position: absolute; */
   font-style: normal;
   /* display: flex; */
-  align-items: center;
+  /* align-items: center; */
 }
 label{
     
@@ -28,23 +27,22 @@ label{
 }
 
 .upper{
-    font-size: 20px;
+    /* font-size: 20px; */
     background-color: #ffff;
-    padding: 2%;
-    height: 66px;
-    width: 490px;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    /* padding: 2%; */
+    /* height: 66px;
+    width: 490px; */
+    /* border-top-left-radius: 8px;
+    border-top-right-radius: 8px; */
 }
-.number{
+.number {
  color: #0079FF;
- height:10px;
  font-style: normal;
  font-weight: 700;
  float: right;
+ font-size: 24px;
 }
 .lower{
-    
     font-family: 'Work Sans';
     font-style: normal;
     font-weight: 400;
@@ -54,10 +52,10 @@ label{
     /* line-height: 120%; */
     color: #1E2A32;
 }
-.calculate{
+/* .calculate{
     margin: 0;
     position: absolute;
     top: 50%;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
-}
+} */
