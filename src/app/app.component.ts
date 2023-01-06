@@ -20,6 +20,8 @@ export class AppComponent implements OnInit {
   public lngstop: any;
   public latstop: any;
   public distanceInkMeters:any;
+  public originplace :string="";
+  public desplace: string="";
   
   constructor(
     private mapsAPILoader: MapsAPILoader, 
@@ -36,36 +38,26 @@ export class AppComponent implements OnInit {
       let autocomplete = new google.maps.places.Autocomplete(type === 'origin' ? this.searchOrigin.nativeElement : this.searchDestination.nativeElement);
       autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
-          // some details
+          
           let place: google.maps.places.PlaceResult = autocomplete.getPlace();
           console.log(place);
-        //  this.address = place.formatted_address;
-        //  this.web_site = place.website;
-        //  this.name = place.name;
-        //  this.zip_code = place.address_components[place.address_components.length - 1].long_name;
-          //set latitude, longitude and zoom
+    
         if (type === 'origin') {
+          this.originplace=this.searchOrigin.nativeElement.value ;
+          console.log( this.originplace);
           if (place.geometry?.location.lat())
           this.latorigin = place.geometry?.location.lat();
           if (place.geometry?.location.lng())
           this.lngorigin = place.geometry?.location.lng();
         } else {
+          this.desplace=this.searchDestination.nativeElement.value;
           if (place.geometry?.location.lat())
           this.latdes = place.geometry?.location.lat();
           if (place.geometry?.location.lng())
           this.lngdes = place.geometry?.location.lng();
         }
-
-      //   this.origin = {lat:this.latorigin,lng: this.lngorigin};
-      //   this.destination = {lat:this.latdes,lng:this.lngdes};
-        
-      //   this.distanceInkMeters = google.maps.geometry.spherical.computeDistanceBetween(
-      //     new google.maps.LatLng(this.origin),
-      //     new google.maps.LatLng(this.destination)
-      // )* 0.001;
-        
-      // console.log(this.distanceInkMeters );
-        //  this.zoom = 12;
+         
+    
         });
       });
     });
